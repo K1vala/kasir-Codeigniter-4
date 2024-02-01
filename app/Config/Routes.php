@@ -5,7 +5,11 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::adminPanel');
+$routes->get('/dashboard', 'Home::adminPanel');
+
+$routes->get('/login', 'AuthController::index');
+$routes->post('/validate', 'AuthController::login');
+$routes->get('/logout', 'AuthController::logout');
 
 $routes->get('/admin/produk', 'ProdukController::index');
 $routes->get('/getProduk', 'ProdukController::getProduk');

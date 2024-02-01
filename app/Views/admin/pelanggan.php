@@ -2,13 +2,11 @@
 <?= $this->section('content') ?>
 <div class="container">
     <div class="card">
-        <div class="card-header">
-            <h3>Pelanggan</h3>
-        </div>
-
         <div class="card-body mt-10">
             <div class="form-group">
                 <form id="pelangganForm">
+                    <h3 class="text-center text-dark">P E L A N G G A N</h3>
+                    <hr>
                     <label for="NamaPelanggan">Nama Pelanggan:</label>
                     <input type="text" id="PelangganID" name="PelangganID" hidden>
                     <input type="text" id="NamaPelanggan" name="NamaPelanggan" class="form-control" required><br>

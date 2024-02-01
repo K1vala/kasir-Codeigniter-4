@@ -2,23 +2,19 @@
 <?= $this->section('content') ?>
 <div class="container">
     <div class="card">
-        <div class="card-header">
+        <div class="card-body mt-10">
             <div class="container-fluid d-flex">
                 <div class="col-md-6">
-                    <h3>User</h3>
+                    <h3 class="text-dark">User</h3>
                 </div>
                 <div class="col-md-6 text-right">
                     <button type="button" onclick="showCreateModal()" class="btn btn-primary">Tambah User</button>
                 </div>
-            </div>
-        </div>
-
-        <div class="card-body mt-10">
+            </div><hr><br>
             <table class="table table-bordered" id="userTable">
                 <thead>
                     <tr class="text-center">
                         <th>No</th>
-
                         <th>Nama Petugas</th>
                         <th>Username</th>
                         <th>Password</th>
@@ -46,13 +42,13 @@
 
                         <label for="createPassword">Password</label>
                         <input type="text" id="createPassword" name="password" class="form-control" required><br>
-                        
+
                         <label for="createRole">Role</label>
                         <select name="role" id="createRole" class="form-control">
                             <option value="Admin">Admin</option>
                             <option value="Petugas">Petugas</option>
                         </select>
-                        
+
                         <hr>
                         <div class="container-fluid d-flex">
                             <div class="col-md-6">
@@ -144,10 +140,10 @@
 
                 function showCreateModal() {
                     $('#createModal').addClass('fadeIn'); // Tambahkan kelas fadeIn
-                            setTimeout(() => {
-                                $('#createModal').css('display', 'block');
-                                $('#createModal').removeClass('fadeIn');
-                            }, 300);
+                    setTimeout(() => {
+                        $('#createModal').css('display', 'block');
+                        $('#createModal').removeClass('fadeIn');
+                    }, 300);
                 }
 
                 // Fungsi untuk menutup modal create
@@ -184,7 +180,7 @@
                                 timer: 1500
                             });
                             getUser();
-                            
+
                             closeCreateModal();
                         }
                     });

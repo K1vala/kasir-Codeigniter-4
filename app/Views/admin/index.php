@@ -2,13 +2,12 @@
 <?= $this->section('content') ?>
 <div class="container">
     <div class="card">
-        <div class="card-header">
-            <h3>Produk</h3>
-        </div>
+        
 
         <div class="card-body mt-10">
             <div class="form-group">
                 <form id="produkForm">
+                    <h3 class="text-center text-dark">P R O D U K</h3><hr>
                     <label for="NamaProduk">Nama Produk:</label>
                     <input type="text" id="ProdukID" name="ProdukID" hidden>
                     <input type="text" id="NamaProduk" name="NamaProduk" class="form-control" required><br>
