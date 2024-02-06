@@ -16,30 +16,33 @@ class AuthController extends BaseController
     {
         // Validasi login
         // (Periksa apakah username dan password sesuai dengan yang ada di database)
+        $session = session();
+        $modelUser = new ModelUser();
 
         // Ambil data username dan password dari form login
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
         // Cek apakah username ada dalam database
-        $modelUser = new ModelUser();
-        $user = $modelUser->where('username', $username)->first();
+        $data = $modelUser->getUserByUsername($username);
 
-        if ($user) {
+        
             // Jika username ditemukan, periksa apakah password cocok
-            if (password_verify($password, $user->password)) {
+            if ($data && password_verify($password, $data->password)) {
                 // Password cocok, buat sesi login
-                $session = session();
-                $session->set('userID', $user->userID);
-                $session->set('username', $user->username);
-                //$session->set('role', $user['role']);
+                $ses_data = [
+                    'userID'=> $data->userID,
+                    'username'=> $data->username,
+                    'nama_petugas'=> $data->nama_petugas,
+                ];
+                $session->set($ses_data);
 
+                return redirect()->to(base_url())->with('error', 'Username atau password salah.');
                 // Redirect ke halaman dashboard atau halaman yang diinginkan
-                return redirect()->to('/login')->with('error', 'Username atau password salah.');
             } else {
                 return redirect()->to('/dashboard');
             }
-        }
+        
 
         // Jika username atau password salah, tampilkan pesan error atau redirect ke halaman login dengan pesan error
     }

@@ -59,7 +59,7 @@
                     <i class="fas fa-fw fa-user"></i>
                     <span>User</span></a>
             </li>
-            
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -81,7 +81,8 @@
                         <h6 class="collapse-header">Custom Components:</h6>
                         <!-- <a class="collapse-item" href="<?= base_url("outlet") ?>">Outlet</a>
                         <a class="collapse-item" href="<?= base_url("member") ?>">Member</a> -->
-                        <a class="collapse-item" href="<?= base_url('login') ?>">Logout</a>
+                        <a class="collapse-item" onclick="logout()" href="<?= base_url('/') ?>">Logout</a>
+                        
                     </div>
                 </div>
             </li>
@@ -191,7 +192,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/login">Logout</a>
                 </div>
             </div>
         </div>
@@ -213,6 +214,35 @@
     <!-- Page level custom scripts -->
     <script src="<?= base_url("js/demo/chart-area-demo.js") ?>"></script>
     <script src="<?= base_url("js/demo/chart-pie-demo.js") ?>"></script>
+
+    <script>
+        function logout() {
+            // Tampilkan peringatan SweetAlert
+            Swal.fire({
+                title: 'Log-out?',
+                text: "Apakah anda yakin ingin Logout",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna menekan tombol "Ya, hapus", lakukan penghapusan data
+                    $.ajax({
+                        url: '/logout',
+                        method: 'GET',
+                        data: { userID: userID },
+                        dataType: 'json',
+                        success: function (data) {
+
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 
 </body>
 

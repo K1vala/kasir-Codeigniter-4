@@ -23,11 +23,13 @@ class UserController extends BaseController
     public function create()
     {
         $model = new ModelUser();
+        $password = $this->request->getPost('password');
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $data = [
             'userID' => $this->request->getPost('userID'),
             'nama_petugas' => $this->request->getPost('nama_petugas'),
             'username' => $this->request->getPost('username'),
-            'password' => $this->request->getPost('password'),
+            'password' => $hashedPassword,
             'role'=> $this->request->getPost('role'),
         ];
         $model->insert($data);

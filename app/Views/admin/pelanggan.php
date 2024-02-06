@@ -20,9 +20,9 @@
                         </div>
                         <div class="col-md-3">
                             <label for="NomorTelepon">NomorTelepon</label>
-                            <input type="text" id="NomorTelepon" name="NomorTelepon" class="form-control" required>
+                            <input type="text" id="NomorTelepon" name="NomorTelepon" class="form-control" required><br>
                         </div>
-                        <div class="col-md-1 mt-2">
+                        <div class="col-md-1 mt-2 text-center">
                             <br>
                             <button type="button" onclick="createPelanggan()" class="btn btn-primary">Tambah</button>
                         </div>

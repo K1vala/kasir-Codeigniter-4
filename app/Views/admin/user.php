@@ -18,7 +18,7 @@
                         <th>No</th>
                         <th>Nama Petugas</th>
                         <th>Username</th>
-                        <th>Password</th>
+                        <!-- <th>Password</th> -->
                         <th>Role</th>
                         <th>Opsi</th>
                     </tr>
@@ -79,7 +79,7 @@
                         <input type="text" id="updateUsername" name="username" class="form-control" required><br>
 
                         <label for="updatePassword">Password :</label>
-                        <input type="text" id="updatePassword" name="password" class="form-control" required><br>
+                        <input type="text" id="updatePassword" name="password" class="form-control" required readonly><br>
 
                         <label for="updateRole">Role</label>
                         <select name="role" id="updateRole" class="form-control">
@@ -126,7 +126,7 @@
                             
                             <td>${user.nama_petugas}</td>
                             <td>${user.username}</td>
-                            <td class="text-center">${user.password}</td>
+                            
                             <td class="text-center">${user.role}</td>
                             <td class="text-center">
                                 <button type="button" class="btn btn-warning" onclick="updateUser(${user.userID})">Update</button>
@@ -136,6 +136,7 @@
                                 $('#userTable tbody').append(row);
                             });
                         }
+                        // <td class="text-center">${user.password}</td>
                     });
                 }
 

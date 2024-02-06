@@ -23,9 +23,9 @@
                             <label for="Stok">Stok:</label>
                             <input type="text" id="Stok" name="Stok" class="form-control" required><br>
                         </div>
-                        <div class="col-md-1 text-center mt-2">
+                        <div class="col-md-1  mt-2">
                             <br>
-                            <button type="button" onclick="createProduk()" class="btn btn-primary">Tambah</button>
+                            <button type="button" onclick="createProduk()" class="btn btn-primary "><i class="fas fa-plus"></i>Tambah</button>
                         </div>
                     </div>
 

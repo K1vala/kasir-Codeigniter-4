@@ -33,38 +33,25 @@
 
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div>
-                                    <?php if (session()->has('error')): ?>
-                                        <div>
-                                            <?= session('error') ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <form action="/validate" method="post" class="form-group">
-                                        <label for="username">Username:</label>
-                                        <input type="text" id="username" name="username" class="form-control" required>
-
-                                        <label for="password">Password:</label>
-                                        <input type="password" id="password" name="password" class="form-control"
-                                            required>
-
-                                        <button type="submit">Login</button>
-                                    </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
-                                    </div>
-                                </div>
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                             </div>
+                            
+                            <form action="login" method="post" class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" id="username" name="username" class="form-control" required><br>
+
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" class="form-control" required><br>
+
+                                <button type="submit" class="form-control btn btn-outline-primary">Login</button>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
