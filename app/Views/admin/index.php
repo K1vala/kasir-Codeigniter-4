@@ -1,25 +1,34 @@
 <?= $this->extend('template/adminPanel'); ?>
 <?= $this->section('content') ?>
-<div class="container">
+<div class="container-fluid">
     <div class="card">
-        
+
 
         <div class="card-body mt-10">
             <div class="form-group">
                 <form id="produkForm">
-                    <h3 class="text-center text-dark">P R O D U K</h3><hr>
-                    <label for="NamaProduk">Nama Produk:</label>
-                    <input type="text" id="ProdukID" name="ProdukID" hidden>
-                    <input type="text" id="NamaProduk" name="NamaProduk" class="form-control" required><br>
+                    <h3 class="text-center text-dark">P R O D U K</h3>
+                    <hr>
+                    <div class="container-fluid d-flex">
+                        <div class="col-md-4">
+                            <label for="NamaProduk">Nama Produk:</label>
+                            <input type="text" id="ProdukID" name="ProdukID" hidden>
+                            <input type="text" id="NamaProduk" name="NamaProduk" class="form-control" required><br>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Harga">Harga:</label>
+                            <input type="text" id="Harga" name="Harga" class="form-control" required><br>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="Stok">Stok:</label>
+                            <input type="text" id="Stok" name="Stok" class="form-control" required><br>
+                        </div>
+                        <div class="col-md-1 text-center mt-2">
+                            <br>
+                            <button type="button" onclick="createProduk()" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </div>
 
-                    <label for="Harga">Harga:</label>
-                    <input type="text" id="Harga" name="Harga" class="form-control" required><br>
-
-                    <label for="Stok">Stok:</label>
-                    <input type="text" id="Stok" name="Stok" class="form-control" required>
-                    <br>
-
-                    <button type="button" onclick="createProduk()" class="btn btn-primary">Tambah Produk</button>
                 </form>
             </div>
             <hr>
@@ -87,18 +96,16 @@
 
                             // Loop melalui data dan tambahkan ke tbody
                             $.each(data, function (index, produk) {
-                                var no = ''
                                 var row = `<tr>
                                 <td class="text-center">${index + 1}</td>
-                            
-                            <td>${produk.NamaProduk}</td>
-                            <td>Rp ${produk.Harga}</td>
-                            <td class="text-center">${produk.Stok}</td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-warning" onclick="updateProduk(${produk.ProdukID})">Update</button>
-                                <button type="button" class="btn btn-danger" onclick="deleteProduk(${produk.ProdukID})">Delete</button>
-                            </td>
-                        </tr>`;
+                                <td>${produk.NamaProduk}</td>
+                                <td>Rp ${produk.Harga}</td>
+                                <td class="text-center">${produk.Stok}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-warning" onclick="updateProduk(${produk.ProdukID})">Update</button>
+                                    <button type="button" class="btn btn-danger" onclick="deleteProduk(${produk.ProdukID})">Delete</button>
+                                </td>
+                            </tr>`;
                                 $('#produkTable tbody').append(row);
                             });
                         }
@@ -138,20 +145,36 @@
                 // Implementasikan fungsi lainnya (update, delete) sesuai kebutuhan
 
                 function deleteProduk(ProdukID) {
-                    $.ajax({
-                        url: '/delete/produk',
-                        method: 'POST',
-                        data: { ProdukID: ProdukID },
-                        dataType: 'json',
-                        success: function (data) {
-                            // Refresh tabel setelah menghapus produk
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Produk Terhapus!',
-                                showConfirmButton: false,
-                                timer: 1500
+
+                    // Tampilkan peringatan SweetAlert
+                    Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Data produk akan dihapus!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Jika pengguna menekan tombol "Ya, hapus", lakukan penghapusan data
+                            $.ajax({
+                                url: '/delete/produk',
+                                method: 'POST',
+                                data: { ProdukID: ProdukID },
+                                dataType: 'json',
+                                success: function (data) {
+                                    // Refresh tabel setelah menghapus produk
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Produk Terhapus!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    getProduk();
+                                }
                             });
-                            getProduk();
                         }
                     });
                 }

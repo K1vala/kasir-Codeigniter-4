@@ -5,12 +5,13 @@
         <div class="card-body mt-10">
             <div class="container-fluid d-flex">
                 <div class="col-md-6">
-                    <h3 class="text-dark">User</h3>
+                    <h3 class="text-dark mt-1">U S E R</h3>
                 </div>
                 <div class="col-md-6 text-right">
                     <button type="button" onclick="showCreateModal()" class="btn btn-primary">Tambah User</button>
                 </div>
-            </div><hr><br>
+            </div>
+            <hr><br>
             <table class="table table-bordered" id="userTable">
                 <thead>
                     <tr class="text-center">
@@ -189,20 +190,35 @@
                 // Implementasikan fungsi lainnya (update, delete) sesuai kebutuhan
 
                 function deleteUser(userID) {
-                    $.ajax({
-                        url: '/delete/user',
-                        method: 'POST',
-                        data: { userID: userID },
-                        dataType: 'json',
-                        success: function (data) {
-                            // Refresh tabel setelah menghapus user
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'User Terhapus!',
-                                showConfirmButton: false,
-                                timer: 1500
+                    // Tampilkan peringatan SweetAlert
+                    Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Data user akan dihapus!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Jika pengguna menekan tombol "Ya, hapus", lakukan penghapusan data
+                            $.ajax({
+                                url: '/delete/user',
+                                method: 'POST',
+                                data: { userID: userID },
+                                dataType: 'json',
+                                success: function (data) {
+                                    // Refresh tabel setelah menghapus user
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'User Terhapus!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    getUser();
+                                }
                             });
-                            getUser();
                         }
                     });
                 }

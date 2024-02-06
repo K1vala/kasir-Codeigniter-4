@@ -1,24 +1,32 @@
 <?= $this->extend('template/adminPanel'); ?>
 <?= $this->section('content') ?>
-<div class="container">
+<div class="container-fluid">
     <div class="card">
         <div class="card-body mt-10">
             <div class="form-group">
                 <form id="pelangganForm">
                     <h3 class="text-center text-dark">P E L A N G G A N</h3>
                     <hr>
-                    <label for="NamaPelanggan">Nama Pelanggan:</label>
-                    <input type="text" id="PelangganID" name="PelangganID" hidden>
-                    <input type="text" id="NamaPelanggan" name="NamaPelanggan" class="form-control" required><br>
-
-                    <label for="Alamat">Alamat</label>
-                    <input type="text" id="Alamat" name="Alamat" class="form-control" required><br>
-
-                    <label for="NomorTelepon">NomorTelepon</label>
-                    <input type="text" id="NomorTelepon" name="NomorTelepon" class="form-control" required>
-                    <br>
-
-                    <button type="button" onclick="createPelanggan()" class="btn btn-primary">Tambah Pelanggan</button>
+                    <div class="container-fluid d-flex">
+                        <div class="col-md-4">
+                            <label for="NamaPelanggan">Nama Pelanggan:</label>
+                            <input type="text" id="PelangganID" name="PelangganID" hidden>
+                            <input type="text" id="NamaPelanggan" name="NamaPelanggan" class="form-control"
+                                required><br>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Alamat">Alamat</label>
+                            <input type="text" id="Alamat" name="Alamat" class="form-control" required><br>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="NomorTelepon">NomorTelepon</label>
+                            <input type="text" id="NomorTelepon" name="NomorTelepon" class="form-control" required>
+                        </div>
+                        <div class="col-md-1 mt-2">
+                            <br>
+                            <button type="button" onclick="createPelanggan()" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </div>
                 </form>
             </div>
             <hr>
@@ -137,20 +145,35 @@
                 // Implementasikan fungsi lainnya (update, delete) sesuai kebutuhan
 
                 function deletePelanggan(PelangganID) {
-                    $.ajax({
-                        url: '/delete/pelanggan',
-                        method: 'POST',
-                        data: { PelangganID: PelangganID },
-                        dataType: 'json',
-                        success: function (data) {
-                            // Refresh tabel setelah menghapus pelanggan
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Pelanggan Terhapus!',
-                                showConfirmButton: false,
-                                timer: 1500
+                    // Tampilkan peringatan SweetAlert
+                    Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Data pelanggan akan dihapus!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Jika pengguna menekan tombol "Ya, hapus", lakukan penghapusan data
+                            $.ajax({
+                                url: '/delete/pelanggan',
+                                method: 'POST',
+                                data: { PelangganID: PelangganID },
+                                dataType: 'json',
+                                success: function (data) {
+                                    // Refresh tabel setelah menghapus pelanggan
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Pelanggan Terhapus!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    getPelanggan();
+                                }
                             });
-                            getPelanggan();
                         }
                     });
                 }
